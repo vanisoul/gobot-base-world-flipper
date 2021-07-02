@@ -62,10 +62,12 @@ func haveOneImgsExecFunc(frequency int, matchNumber float64, rigorous bool, imgF
 //rigorous : 是否需要持續1秒鐘以上圖片存在才算匹配成功 : 秒數可由rigorousSec修改,
 //imgFullPaths : 傳入圖片相對全路徑 (多張),
 //funcs : 可能被執行的方法
-func haveAllImgsExecFunc(frequency int, matchNumber float64, rigorous bool, imgFullPaths []string, funcs func()) {
+func haveAllImgsExecFunc(frequency int, matchNumber float64, rigorous bool, imgFullPaths []string, Yfunc func(), Nfunc func()) {
 	findSucc := findAllImages(frequency, matchNumber, rigorous, imgFullPaths...)
 	if findSucc {
-		funcs()
+		Yfunc()
+	} else {
+		Nfunc()
 	}
 }
 
@@ -84,10 +86,22 @@ func savescreen(paths ...string) int {
 			log.Error(err)
 		}
 	}
+
 	AdbShellScreencapPullRm()
 	bitmap := robotgo.OpenBitmap("screen.png")
 	defer robotgo.FreeBitmap(bitmap)
 	robotgo.SaveBitmap(bitmap, imgName)
 
 	return r
+}
+
+// 儲存定義的的視窗
+func debugscreen(paths string) {
+
+	imgName := fmt.Sprintf("log/%s.png", paths)
+
+	AdbShellScreencapPullRm()
+	bitmap := robotgo.OpenBitmap("screen.png")
+	defer robotgo.FreeBitmap(bitmap)
+	robotgo.SaveBitmap(bitmap, imgName)
 }

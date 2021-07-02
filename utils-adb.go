@@ -121,3 +121,11 @@ func AdbShellDumpsysActivityF() string {
 	fmt.Println(match)
 	return match
 }
+
+func openApp() {
+	exec.Command("adb", "-s", adbHost, "shell", "am", "start", "-n", "package/appName").Run()
+}
+
+func closeApp() {
+	exec.Command("adb", "-s", adbHost, "shell", "am", "force-stop", "package").Run()
+}

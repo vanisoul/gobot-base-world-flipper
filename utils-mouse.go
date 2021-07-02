@@ -18,3 +18,7 @@ func mouseClick(x int, y int) {
 	AdbShellInputTap(x, y)
 	robotgo.Sleep(1)
 }
+
+func mouseClickNotTime(x int, y int) {
+	AdbShellInputTap(x, y)
+}
