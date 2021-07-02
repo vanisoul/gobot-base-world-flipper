@@ -16,9 +16,11 @@ func haveOneImgsClick(frequency int, matchNumber float64, rigorous bool, imgFull
 
 func mouseClick(x int, y int) {
 	AdbShellInputTap(x, y)
+	notthink = 0
 	robotgo.Sleep(1)
 }
 
 func mouseClickNotTime(x int, y int) {
+	notthink = 0
 	AdbShellInputTap(x, y)
 }
